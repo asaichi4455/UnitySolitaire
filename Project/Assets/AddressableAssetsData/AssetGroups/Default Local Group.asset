@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Default Local Group
+  m_EditorClassIdentifier: 
+  m_GroupName: Default Local Group
+  m_Data:
+    m_SerializedData: []
+  m_GUID: ca45e1db83fe05c499d9eea57121e85f
+  m_SerializeEntries:
+  - m_GUID: 65e8b39665ef8184d87e5e90c89dfff3
+    m_Address: Textures/Card
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8b2fd7c7fb5496942a35d05f6de71c97
+    m_Address: Prefabs/Card
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5546857bac41adf489e3b030c9465816
+    m_Address: Audio/MoveToStock
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Audio
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 068ba807e3b3afc4ba8200acf1bb5090
+    m_Address: Audio/MoveCard
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Audio
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 5e4f2119d3a4a1a40b22397e7619765b, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 6d38fd29a5b498140baaf935e4c96121, type: 2}
+    - {fileID: 11400000, guid: c024e395a2d036542a5842f7426854ea, type: 2}
