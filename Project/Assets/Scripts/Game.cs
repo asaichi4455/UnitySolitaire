@@ -56,7 +56,6 @@ namespace Solitaire
                 _audio.LoadResourcesAsync()
             );
 
-            PrepareCards();
             Init();
 
             _state = State.SelectDifficulty;
@@ -119,6 +118,17 @@ namespace Solitaire
 
         private void Init()
         {
+            // カード生成
+            for (Suit s = 0; s < Suit.Num; ++s)
+            {
+                for (Number n = 0; n < Number.Num; ++n)
+                {
+                    var card = Instantiate(_cardPrefabHandle.Result).GetComponent<CardInfo>();
+                    card.Init(s, n, _cardSpritesHandle.Result.ToList());
+                    _cards.Add(card);
+                }
+            }
+
             // 難易度選択
             _selectDifficulty.Init();
             _selectDifficulty.OnSelect += difficulty =>
@@ -176,20 +186,6 @@ namespace Solitaire
 
             // 移動制御
             _movement.Init(_cards, CreateCardCoordinates(), bounds.Piles);
-        }
-
-        private void PrepareCards()
-        {
-            // カード生成
-            for (Suit s = 0; s < Suit.Num; ++s)
-            {
-                for (Number n = 0; n < Number.Num; ++n)
-                {
-                    var card = Instantiate(_cardPrefabHandle.Result).GetComponent<CardInfo>();
-                    card.Init(s, n, _cardSpritesHandle.Result.ToList());
-                    _cards.Add(card);
-                }
-            }
         }
 
         private void PrepareStock()

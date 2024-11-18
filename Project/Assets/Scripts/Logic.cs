@@ -267,11 +267,11 @@ namespace Solitaire
             card.PileIndex = pileIndex;
 
             // 連続したカードを同時に移動
-            for (var j = 0; j < connectedCards.Count(); ++j)
+            for (var i = 0; i < connectedCards.Count(); ++i)
             {
-                connectedCards[j].Order = card.Order + j + 1;
-                connectedCards[j].CardType = CardType.Pile;
-                connectedCards[j].PileIndex = pileIndex;
+                connectedCards[i].Order = card.Order + i + 1;
+                connectedCards[i].CardType = CardType.Pile;
+                connectedCards[i].PileIndex = pileIndex;
             }
 
             // 移動先の場札の位置を更新

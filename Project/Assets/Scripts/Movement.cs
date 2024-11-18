@@ -11,7 +11,7 @@ namespace Solitaire
         private static readonly int WasteOffsetY = 16;
         private static readonly int PileOffsetY = 16;
         private static readonly int MinPileOffsetY = 6;
-        private static readonly int DraggingCardSortingOrder = 100;
+        private static readonly int DragCardSortingOrder = 100;
 
         private List<CardInfo> _cards;
         private CardCoordinates _coordinates;
@@ -98,13 +98,13 @@ namespace Solitaire
             if (heightOver > 0)
             {
                 var numFacedown = pileCards.Count(c => c.IsFacedown);
-                var numFaceUp = pileCards.Count - numFacedown;
+                var numFaceup = pileCards.Count - numFacedown;
                 offsetFacedown -= Mathf.CeilToInt(heightOver / numFacedown);
                 offsetFacedown = Mathf.Clamp(offsetFacedown, MinPileOffsetY, PileOffsetY);
-                heightOver = cardHeight + numFacedown * offsetFacedown + (numFaceUp - 1) * offsetFaceup - _pileDropBounds[pileIndex].size.y;
+                heightOver = cardHeight + numFacedown * offsetFacedown + (numFaceup - 1) * offsetFaceup - _pileDropBounds[pileIndex].size.y;
                 if (heightOver > 0)
                 {
-                    offsetFaceup -= Mathf.CeilToInt(heightOver / (numFaceUp - 1));
+                    offsetFaceup -= Mathf.CeilToInt(heightOver / (numFaceup - 1));
                     offsetFaceup = Mathf.Clamp(offsetFaceup, MinPileOffsetY, PileOffsetY);
                 }
             }
@@ -117,7 +117,7 @@ namespace Solitaire
                 pos.y -= (c.IsFacedown ? offsetFacedown : offsetFaceup);
             }
 
-            card.SortingOrder = DraggingCardSortingOrder + order;
+            card.SortingOrder = DragCardSortingOrder + order;
             await  AnimateAsync(card, pos);
             card.SortingOrder = order;
         }
@@ -125,7 +125,7 @@ namespace Solitaire
         public void MoveToFoundation(CardInfo card, int order)
         {
             var pos = _coordinates.Foundations[(int)card.Suit];
-            card.SortingOrder = DraggingCardSortingOrder + order;
+            card.SortingOrder = DragCardSortingOrder + order;
             var _ = AnimateAsync(card, pos);
         }
 
@@ -158,15 +158,6 @@ namespace Solitaire
             }
         }
 
-        public async UniTask MoveToPrev(List<CardInfo> cards)
-        {
-            for (var i = 0; i < cards.Count(); ++i)
-            {
-                await AnimateAsync(cards[i], cards[i].PrevPosition);
-                cards[i].SortingOrder = cards[i].PrevSortingOrder;
-            }
-        }
-
         private void OnBeginDrag(CardInfo card, Vector2 pos)
         {
             if (IsAnimate)
@@ -174,7 +165,7 @@ namespace Solitaire
 
             card.PrevPosition = card.transform.position;
             card.PrevSortingOrder = card.SortingOrder;
-            card.SortingOrder = DraggingCardSortingOrder + (int)card.Number;
+            card.SortingOrder = DragCardSortingOrder + (int)card.Number;
 
             if (card.CardType == CardType.Pile)
             {
@@ -183,7 +174,7 @@ namespace Solitaire
                 {
                     cards[i].PrevPosition = cards[i].transform.position;
                     cards[i].PrevSortingOrder = cards[i].SortingOrder;
-                    cards[i].SortingOrder = DraggingCardSortingOrder + (int)card.Number + i + 1;
+                    cards[i].SortingOrder = DragCardSortingOrder + (int)card.Number + i + 1;
                 }
             }
         }
