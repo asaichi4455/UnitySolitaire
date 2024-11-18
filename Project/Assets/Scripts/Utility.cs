@@ -108,12 +108,16 @@ namespace Solitaire
                 .ToList();
         }
 
-        public static bool IsGameClear(List<CardInfo> cards)
+        public static bool IsGameClear(List<CardInfo> cards, int numTurnToWaste)
         {
             if (cards.Any(c => c.CardType == CardType.Pile && c.IsFacedown))
                 return false;
 
             if (cards.Any(c => c.CardType == CardType.Stock))
+                return false;
+
+            var numWaste = cards.Where(c => c.CardType == CardType.Waste).Count();
+            if (numTurnToWaste > 1 && numWaste > 1)
                 return false;
 
             return true;

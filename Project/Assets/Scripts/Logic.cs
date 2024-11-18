@@ -12,7 +12,7 @@ namespace Solitaire
         public event Action<CardInfo, int> OnMoveWaste;
         public event Action OnMoveWasteFull;
         public event Action<CardInfo, int, int> OnMoveToPile;
-        public event Action<CardInfo, int> OnMoveToFoundation;
+        public event Action<CardInfo, int, bool> OnMoveToFoundation;
         public event Action<CardInfo> OnMoveToPrev;
         public event Action<CardMoveStep> OnMoveOneStep;
         public event Action OnGameClear;
@@ -64,7 +64,7 @@ namespace Solitaire
                 {
                     c.CardType = CardType.Foundation;
                     c.Order = (int)c.Number;
-                    OnMoveToFoundation(c, c.Order);
+                    OnMoveToFoundation(c, c.Order, true);
                 }
             }
         }
@@ -149,9 +149,9 @@ namespace Solitaire
             // ‘gŽD‚ÉˆÚ“®
             card.Order = (int)card.Number;
             card.CardType = CardType.Foundation;
-            OnMoveToFoundation?.Invoke(card, card.Order);
+            OnMoveToFoundation?.Invoke(card, card.Order, false);
             
-            if (Utility.IsGameClear(_cards))
+            if (Utility.IsGameClear(_cards, _numTurnToWaste))
             {
                 OnGameClear?.Invoke();
             }
@@ -211,9 +211,9 @@ namespace Solitaire
             // ‘gŽD‚ÉˆÚ“®
             card.Order = (int)card.Number;
             card.CardType = CardType.Foundation;
-            OnMoveToFoundation?.Invoke(card, card.Order);
+            OnMoveToFoundation?.Invoke(card, card.Order, false);
 
-            if (Utility.IsGameClear(_cards))
+            if (Utility.IsGameClear(_cards, _numTurnToWaste))
             {
                 OnGameClear?.Invoke();
             }

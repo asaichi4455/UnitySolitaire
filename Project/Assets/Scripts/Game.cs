@@ -166,7 +166,7 @@ namespace Solitaire
             _logic.OnMoveWaste += _movement.MoveWaste;
             _logic.OnMoveWasteFull += _movement.MoveWasteFull;
             _logic.OnMoveToPile += (card, pileIndex, order) => { var _ = _movement.MoveToPile(card, pileIndex, order); };
-            _logic.OnMoveToFoundation += _movement.MoveToFoundation;
+            _logic.OnMoveToFoundation += (card, order, isClear) => { var _ = _movement.MoveToFoundation(card, order, isClear); };
             _logic.OnMoveToPrev += card => { var _ = _movement.MoveToPrev(card); };
             _logic.OnMoveOneStep += step =>
             {

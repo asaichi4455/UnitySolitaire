@@ -122,11 +122,19 @@ namespace Solitaire
             card.SortingOrder = order;
         }
 
-        public void MoveToFoundation(CardInfo card, int order)
+        public async UniTask MoveToFoundation(CardInfo card, int order, bool isClear)
         {
             var pos = _coordinates.Foundations[(int)card.Suit];
             card.SortingOrder = DragCardSortingOrder + order;
-            var _ = AnimateAsync(card, pos);
+            if (isClear)
+            {
+                var _ = AnimateAsync(card, pos);
+            }
+            else
+            {
+                await AnimateAsync(card, pos);
+                card.SortingOrder = order;
+            }
         }
 
         public async UniTask MoveToPrev(CardInfo card)
