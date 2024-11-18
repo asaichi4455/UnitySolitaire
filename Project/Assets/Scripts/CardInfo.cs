@@ -98,6 +98,7 @@ namespace Solitaire
         private CardType _cardType = CardType.Stock;
         private int _pileIndex = 0;
         private int _order = 0;
+        private bool _isDrag = false;
         private Vector2 _prevPosition = Vector2.zero;
         private int _prevSortingOrder = 0;
 
@@ -127,6 +128,12 @@ namespace Solitaire
         {
             get { return _order; }
             set { _order = value; }
+        }
+
+        public bool IsDrag
+        {
+            get { return _isDrag; }
+            set { _isDrag = value; }
         }
 
         public Vector2 PrevPosition

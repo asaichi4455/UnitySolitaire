@@ -189,7 +189,7 @@ namespace Solitaire
 
         private void OnDrag(CardInfo card, Vector2 pos)
         {
-            if (IsAnimate)
+            if (IsAnimate || !card.IsDrag)
                 return;
 
             card.transform.position = pos;

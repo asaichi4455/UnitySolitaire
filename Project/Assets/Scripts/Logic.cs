@@ -34,6 +34,7 @@ namespace Solitaire
             foreach (CardInfo card in cards)
             {
                 card.OnClick += OnClick;
+                card.OnBeginDrag += OnBeginDrag;
                 card.OnEndDrag += OnEndDrag;
             }
         }
@@ -150,7 +151,7 @@ namespace Solitaire
             card.Order = (int)card.Number;
             card.CardType = CardType.Foundation;
             OnMoveToFoundation?.Invoke(card, card.Order, false);
-            
+
             if (Utility.IsGameClear(_cards, _numTurnToWaste))
             {
                 OnGameClear?.Invoke();
@@ -371,8 +372,18 @@ namespace Solitaire
             }
         }
 
+        private void OnBeginDrag(CardInfo card, Vector2 pos)
+        {
+            var isEnable = IsEnableMove?.Invoke();
+            if (isEnable != null && isEnable.Value)
+                card.IsDrag = true;
+        }
+
         private void OnEndDrag(CardInfo card, Vector2 pos)
         {
+            if (!card.IsDrag)
+                return;
+
             var isEnable = IsEnableMove?.Invoke();
             if (isEnable != null && !isEnable.Value)
                 return;
@@ -477,6 +488,8 @@ namespace Solitaire
                 default:
                     break;
             }
+
+            card.IsDrag = false;
         }
     }
 }
