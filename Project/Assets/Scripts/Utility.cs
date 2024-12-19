@@ -110,13 +110,18 @@ namespace Solitaire
 
         public static bool IsGameClear(List<CardInfo> cards, int numTurnToWaste)
         {
+            // 裏の場札がある
             if (cards.Any(c => c.CardType == CardType.Pile && c.IsFacedown))
                 return false;
 
+            // 山札が残っている
             if (cards.Any(c => c.CardType == CardType.Stock))
                 return false;
 
+            // 山札からめくったカードの中で操作できないカードがある
             var numWaste = cards.Where(c => c.CardType == CardType.Waste).Count();
+            if (numWaste > Game.MaxWastes)
+                return false;
             if (numTurnToWaste > 1 && numWaste > 1)
                 return false;
 

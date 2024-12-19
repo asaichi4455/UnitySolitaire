@@ -113,6 +113,11 @@ namespace Solitaire
 
                 // めくられていたカードを奥に移動
                 // 手前のカードのみ操作可能とする
+                for (var i = 0; i < wasteTop.Count; ++i)
+                {
+                    wasteTop[i].Clickable = false;
+                }
+
                 var numWasteTop = wasteTop.Count;
                 var numTurnCards = turnCards.Count;
                 if (numWasteTop + numTurnCards > Game.MaxWastes)
@@ -121,7 +126,6 @@ namespace Solitaire
                     {
                         var order = Mathf.Clamp(i - (numWasteTop + numTurnCards - Game.MaxWastes), 0, Game.MaxWastes - 1);
                         wasteTop[i].Order = order;
-                        wasteTop[i].Clickable = false;
                         OnMoveWaste?.Invoke(wasteTop[i], order);
                     }
                 }
@@ -430,7 +434,6 @@ namespace Solitaire
                 {
                     var move = false;
                     var connectedCards = Utility.GetConnectedCards(_cards, card);
-                    var srcPileIndex = card.PileIndex;
 
                     // 場札 -> 組札の移動判定
                     if (connectedCards.Count == 0)
